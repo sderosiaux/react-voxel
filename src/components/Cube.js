@@ -4,17 +4,17 @@ import { getCubeClickAction } from '../actions/all.js';
 
 import { Face } from './Face.js';
 
-const CUBE_CSS = (x, y, z, clicked) => ({
+const CUBE_CSS = (x, y, z, rotateX, rotateY, clicked) => ({
   position: 'absolute',
   transformStyle: 'preserve-3d',
-  transform: `translate3d(${x}px, ${y}px, ${z}px)`,
-  opacity: (clicked ? 0.5 : 1)
+  transform: `translate3d(${x}px, ${y}px, ${z}px) rotateX(${rotateX || 0}deg) rotateY(${rotateY || 0}deg)`,
+  opacity: (clicked ? 0.5 : 1),
 });
 
 //
 // Pure component
 //
-const Cube = ({ id, size, x, y, z, clicked, onClick }) => <div style={CUBE_CSS(x, y, z, clicked)} onClick={() => onClick(id)}>
+const Cube = ({ id, size, x, y, z, rotateX, rotateY, clicked, onClick }) => <div style={CUBE_CSS(x, y, z, rotateX, rotateY, clicked)} onClick={() => onClick(id)}>
                           <Face key="top"    size={size} rotateX={90} rotateY={0}  translateZ={ size / 2} />
                           <Face key="bottom" size={size} rotateX={90} rotateY={0}  translateZ={-size / 2} />
                           <Face key="left"   size={size} rotateX={0}  rotateY={90} translateZ={ size / 2} />
@@ -28,6 +28,6 @@ export { Cube };
 // Connected component
 // 
 
-const mapStateToProps = (state, props) => state.cubes.find(c => c.id === props.id);
+const mapStateToProps = (state, props) => ({ ...state.cubes.find(c => c.id === props.id), ...props });
 const dispatchToProps = (dispatch) => ({ onClick: (id) => dispatch(getCubeClickAction(id)) });
 export default connect(mapStateToProps, dispatchToProps)(Cube);

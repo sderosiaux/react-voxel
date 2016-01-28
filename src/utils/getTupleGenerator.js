@@ -12,6 +12,44 @@ export function getTupleGenerator(rows, columns) {
   }
 }
 
+export function getRandomTupleGenerator(rows, columns) {
+  const arr = [];
+  for (let i = 0; i < rows; i++)
+    for (let j = 0; j < columns; j++)
+      arr.push({ i, j });
+  arr.sort(() => Math.random() > 0.5);
+  arr.sort(() => Math.random() > 0.5);
+
+  return () => {
+    if (!arr.length) return null;
+    return arr.pop();
+  }
+}
+
+const REACT = [
+  [ 1, 1, 1,  ,  , 1, 1, 1, 1,  ,  , 1, 1,  ,  , 1, 1, 1, 1,  , 1, 1, 1, 1, 1 ],
+  [ 1,  ,  , 1,  , 1,  ,  ,  ,  , 1,  ,  , 1,  , 1,  ,  ,  ,  ,  , , 1,   ],
+  [ 1,  ,  , 1,  , 1,  ,  ,  ,  , 1,  ,  , 1,  , 1,  ,  ,  ,  ,  , , 1,   ],
+  [ 1, 1, 1,  ,  , 1, 1, 1,  ,  , 1, 1, 1, 1,  , 1,  ,  ,  ,  ,  , , 1,   ],
+  [ 1,  , 1,  ,  , 1,  ,  ,  ,  , 1,  ,  , 1,  , 1,  ,  ,  ,  ,  , , 1,   ],
+  [ 1,  ,  , 1,  , 1,  ,  ,  ,  , 1,  ,  , 1,  , 1,  ,  ,  ,  ,  , , 1,   ],
+  [ 1,  ,  , 1,  , 1, 1, 1, 1,  , 1,  ,  , 1,  , 1, 1, 1, 1,  ,  , , 1,   ],
+];
+export function getMessageTupleGenerator(message = REACT) {
+  const arr = [];
+  for (let i = 0; i < message.length; i++)
+    for (let j = 0; j < message[i].length; j++)
+      if (message[i][j])
+        arr.push({ i, j });
+  arr.sort(() => Math.random() > 0.5);
+  arr.sort(() => Math.random() > 0.5);
+
+  return () => {
+    if (!arr.length) return null;
+    return arr.pop();
+  }
+}
+
 const SIZE = 50;
 const MARGIN = 5;
 
