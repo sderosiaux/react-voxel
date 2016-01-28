@@ -1,3 +1,4 @@
 const CUBE_CLICK = 'CUBE.CLICK';
+const CREATE_CUBE = 'CUBE.CREATE';
 
-export { CUBE_CLICK };
+export { CUBE_CLICK, CREATE_CUBE };
