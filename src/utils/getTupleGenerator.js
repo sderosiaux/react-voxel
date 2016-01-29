@@ -28,12 +28,12 @@ export function getRandomTupleGenerator(rows, columns) {
 
 const REACT = [
   [ 1, 1, 1,  ,  , 1, 1, 1, 1,  ,  , 1, 1,  ,  , 1, 1, 1, 1,  , 1, 1, 1, 1, 1 ],
-  [ 1,  ,  , 1,  , 1,  ,  ,  ,  , 1,  ,  , 1,  , 1,  ,  ,  ,  ,  , , 1,   ],
-  [ 1,  ,  , 1,  , 1,  ,  ,  ,  , 1,  ,  , 1,  , 1,  ,  ,  ,  ,  , , 1,   ],
-  [ 1, 1, 1,  ,  , 1, 1, 1,  ,  , 1, 1, 1, 1,  , 1,  ,  ,  ,  ,  , , 1,   ],
-  [ 1,  , 1,  ,  , 1,  ,  ,  ,  , 1,  ,  , 1,  , 1,  ,  ,  ,  ,  , , 1,   ],
-  [ 1,  ,  , 1,  , 1,  ,  ,  ,  , 1,  ,  , 1,  , 1,  ,  ,  ,  ,  , , 1,   ],
-  [ 1,  ,  , 1,  , 1, 1, 1, 1,  , 1,  ,  , 1,  , 1, 1, 1, 1,  ,  , , 1,   ],
+  [ 1,  ,  , 1,  , 1,  ,  ,  ,  , 1,  ,  , 1,  , 1,  ,  ,  ,  ,  ,  , 1,   ],
+  [ 1,  ,  , 1,  , 1,  ,  ,  ,  , 1,  ,  , 1,  , 1,  ,  ,  ,  ,  ,  , 1,   ],
+  [ 1, 1, 1,  ,  , 1, 1, 1,  ,  , 1, 1, 1, 1,  , 1,  ,  ,  ,  ,  ,  , 1,   ],
+  [ 1,  , 1,  ,  , 1,  ,  ,  ,  , 1,  ,  , 1,  , 1,  ,  ,  ,  ,  ,  , 1,   ],
+  [ 1,  ,  , 1,  , 1,  ,  ,  ,  , 1,  ,  , 1,  , 1,  ,  ,  ,  ,  ,  , 1,   ],
+  [ 1,  ,  , 1,  , 1, 1, 1, 1,  , 1,  ,  , 1,  , 1, 1, 1, 1,  ,  ,  , 1,   ],
 ];
 export function getMessageTupleGenerator(message = REACT) {
   const arr = [];
@@ -43,6 +43,13 @@ export function getMessageTupleGenerator(message = REACT) {
         arr.push({ i, j });
   arr.sort(() => Math.random() > 0.5);
   arr.sort(() => Math.random() > 0.5);
+
+  // add underline
+  const underlineY = (message.length + 2);
+  for (let i = 0; i < message[0].length; i++) {
+    arr.unshift({ i: underlineY, j: i });
+    arr.unshift({ i: underlineY + 1, j: i });
+  }
 
   return () => {
     if (!arr.length) return null;
