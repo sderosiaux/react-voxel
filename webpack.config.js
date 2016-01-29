@@ -9,14 +9,14 @@ var plugins = [ new webpack.DefinePlugin({
     }
 }) ];
 
-if (isProd) {
+if (!isProd) {
   plugins = plugins.concat(new webpack.optimize.OccurenceOrderPlugin(),
                            new webpack.HotModuleReplacementPlugin(),
                            new webpack.NoErrorsPlugin());
 }
 
 module.exports = {
-  devtool: 'eval',
+  devtool: (isProd ? null : 'eval'),
   entry: isProd ? path.join(__dirname, 'src', 'index.js') : [
     'webpack-hot-middleware/client',
     path.join(__dirname, 'src', 'index.js'),
