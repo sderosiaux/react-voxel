@@ -1,9 +1,23 @@
 var path = require('path');
 var webpack = require('webpack');
 
+var isProd = (process.env.NODE_ENV === 'production');
+
+var plugins = [ new webpack.DefinePlugin({
+    'process.env': {
+      'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+    }
+}) ];
+
+if (isProd) {
+  plugins = plugins.concat(new webpack.optimize.OccurenceOrderPlugin(),
+                           new webpack.HotModuleReplacementPlugin(),
+                           new webpack.NoErrorsPlugin());
+}
+
 module.exports = {
   devtool: 'eval',
-  entry: [
+  entry: isProd ? path.join(__dirname, 'src', 'index.js') : [
     'webpack-hot-middleware/client',
     path.join(__dirname, 'src', 'index.js'),
   ],
@@ -19,14 +33,5 @@ module.exports = {
       include: path.join(__dirname, 'src'),
     }]
   },
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
-      }
-    }),
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
-  ]
+  plugins: plugins
 };

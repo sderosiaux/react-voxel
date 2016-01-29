@@ -17,9 +17,23 @@ const createSizeCube = (props) => {
          }</Motion>;
 }
 
-const animation = { stiffness: 220, damping: 100 };
 const createPositionCube = (props) => {
-  return <Motion defaultStyle={{ x: 1000, y: 500, z: 1000, rotateX: Math.random() * 1000, rotateY: Math.random() * 1000 }} style={{ x: spring(props.x, animation), y: spring(props.y, animation), z: spring(props.z, animation), rotateX: spring(0), rotateY: spring(0) }}>{
+  const startStyle = {
+    x: 1000,
+    y: 500,
+    z: 1000,
+    rotateX: Math.random() * 1000,
+    rotateY: Math.random() * 1000
+  };
+  const endStyle = {
+    x: spring(props.x),
+    y: spring(props.y),
+    z: spring(props.z),
+    rotateX: spring(0),
+    rotateY: spring(0)
+  };
+
+  return <Motion defaultStyle={startStyle} style={endStyle}>{
             val => <Cube key={props.id} {...props} x={val.x} y={val.y} z={val.z} rotateX={val.rotateX} rotateY={val.rotateY} />
          }</Motion>;
 }
